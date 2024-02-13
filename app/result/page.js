@@ -122,7 +122,7 @@ export default function Result() {
     }
 
     return (
-        <main className="flex min-h-screen flex-col items-center justify-top pt-12 p-20">
+        <main className="flex min-h-screen flex-col items-center justify-top pt-12 pb-0 p-20">
             <TopLogo></TopLogo>
 
             {/* LOADING */}
