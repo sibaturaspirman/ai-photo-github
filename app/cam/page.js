@@ -86,7 +86,9 @@ export default function Cam() {
         );
 
         let faceImage = canvas.toDataURL();
-        localStorage.setItem("faceImage", faceImage)
+        if (typeof localStorage !== 'undefined') {
+            localStorage.setItem("faceImage", faceImage)
+        }
         setTimeout(() => {
             router.push('/generate');
         }, 1250);

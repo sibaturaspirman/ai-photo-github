@@ -40,8 +40,10 @@ export default function Register() {
     // @snippet:end
     useEffect(() => {
         // Perform localStorage action
-        const item = localStorage.getItem('faceImage')
-        setImageFile(item)
+        if (typeof localStorage !== 'undefined') {
+            const item = localStorage.getItem('faceImage')
+            setImageFile(item)
+        }
     }, [imageFile])
 
     const handleGender = (e) => {
@@ -240,8 +242,11 @@ export default function Register() {
         toDataURL(FACE_URL_RESULT)
         .then(dataUrl => {
             // console.log('RESULT:', dataUrl)
-            localStorage.setItem("resulAIBase64", dataUrl)
-            localStorage.setItem("faceURLResult", FACE_URL_RESULT)
+
+            if (typeof localStorage !== 'undefined') {
+                localStorage.setItem("resulAIBase64", dataUrl)
+                localStorage.setItem("faceURLResult", FACE_URL_RESULT)
+            }
         
             setTimeout(() => {
                 router.push('/result');

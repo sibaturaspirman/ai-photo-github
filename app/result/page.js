@@ -54,16 +54,18 @@ export default function Result() {
 
     useEffect(() => {
         // Perform localStorage action
-        const item = localStorage.getItem('resulAIBase64')
-        const item2 = localStorage.getItem('faceURLResult')
+        if (typeof localStorage !== 'undefined') {
+            const item = localStorage.getItem('resulAIBase64')
+            const item2 = localStorage.getItem('faceURLResult')
+            setImageResultAI(item)
+            setLinkQR(item2)
+        }
         // const item2 = getCookie('phone')
         // const item3 = getCookie('name')
         // setPayload(() => ({
         //     name: item2,
         //     phone: item3,
         //   }));
-        setImageResultAI(item)
-        setLinkQR(item2)
     }, [imageResultAI, linkQR])
 
     const downloadImageAI = () => {
