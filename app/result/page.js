@@ -81,44 +81,44 @@ export default function Result() {
         emitString("sendImage", linkQR);
         // downloadImage(canvas.toDataURL("image/jpeg", 1.0), 'my-canvas.jpeg')
         // console.log(payload)
-        // let bodyFormData = new FormData();
-        // bodyFormData.append("name", payload.name);
-        // bodyFormData.append("phone", payload.phone);
-        // bodyFormData.append("file", canvas.toDataURL("image/jpeg", 1.0));
+        let bodyFormData = new FormData();
+        bodyFormData.append("name", payload.name);
+        bodyFormData.append("phone", payload.phone);
+        bodyFormData.append("file", canvas.toDataURL("image/jpeg", 1.0));
 
-        // console.log(bodyFormData)
+        console.log(bodyFormData)
     
-        // const options = {
-        //     method: 'POST',
-        //     body: bodyFormData,
-        //     headers: {
-        //         'Authorization': 'de2e0cc3-65da-48a4-8473-484f29386d61:xZC8Zo4DAWR5Yh6Lrq4QE3aaRYJl9lss',
-        //         'Content-Type': 'application/json',
-        //     }
-        // };
+        const options = {
+            method: 'POST',
+            body: bodyFormData,
+            headers: {
+                'Authorization': 'de2e0cc3-65da-48a4-8473-484f29386d61:xZC8Zo4DAWR5Yh6Lrq4QE3aaRYJl9lss',
+                'Content-Type': 'application/json',
+            }
+        };
           
-        // await fetch('https://photo-ai-iims.zirolu.id/v1/uploads', options)
-        //     .then(response => response.json())
-        //     .then(response => console.log(response))
-        //     .catch(err => console.error(err));
+        await fetch('https://photo-ai-iims.zirolu.id/v1/uploads', options)
+            .then(response => response.json())
+            .then(response => console.log(response))
+            .catch(err => console.error(err));
 
         // SENT EMAIL
-        // const options = {
-        //     method: 'POST',
-        //     body: {
-        //         "email": "asepirman@antigravity.id",
-        //         "id": 1
-        //     },
-        //     headers: {
-        //         'Authorization': 'de2e0cc3-65da-48a4-8473-484f29386d61:xZC8Zo4DAWR5Yh6Lrq4QE3aaRYJl9lss',
-        //         'Content-Type': 'application/json',
-        //     }
-        // };
+        const options2 = {
+            method: 'POST',
+            body: {
+                "email": "asepirman@antigravity.id",
+                "id": 1
+            },
+            headers: {
+                'Authorization': 'de2e0cc3-65da-48a4-8473-484f29386d61:xZC8Zo4DAWR5Yh6Lrq4QE3aaRYJl9lss',
+                'Content-Type': 'application/json',
+            }
+        };
           
-        // await fetch('https://photo-ai-iims.zirolu.id/v1/uploads/email', options)
-        //     .then(response => response.json())
-        //     .then(response => console.log(response))
-        //     .catch(err => console.error(err));
+        await fetch('https://photo-ai-iims.zirolu.id/v1/uploads/email', options2)
+            .then(response => response.json())
+            .then(response => console.log(response))
+            .catch(err => console.error(err));
     }
 
     return (
