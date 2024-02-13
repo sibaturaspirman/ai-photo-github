@@ -1,0 +1,169 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --foreground-rgb: 0, 0, 0;
+  --background-start-rgb: 214, 219, 220;
+  --background-end-rgb: 255, 255, 255;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --foreground-rgb: 255, 255, 255;
+    --background-start-rgb: 0, 0, 0;
+    --background-end-rgb: 0, 0, 0;
+  }
+}
+
+body {
+  overflow: hidden;
+  color: rgb(var(--foreground-rgb));
+  background: linear-gradient(
+      to bottom,
+      transparent,
+      rgb(var(--background-end-rgb))
+    )
+    rgb(var(--background-start-rgb));
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
+
+body{
+  background-image: url(../public/bg.jpg);
+  background-size: cover;
+}
+
+.disabled{
+  pointer-events: none;
+}
+.choose{
+  display: flex;
+  align-items: center;
+  /* justify-content: center; */
+  position: relative;
+  width: 100%;
+}
+.choose li{
+  display: block;
+  position: relative;
+  margin-right: 2rem;
+  width: 33.333%;
+}
+.choose li:last-child{
+  margin-right: 0;
+}
+.choose li label{
+  border: 2px solid transparent;
+  box-shadow: 3px 3px 0px 0px transparent;
+  transition: all ease 300ms;
+  width: 100%;
+}
+.choose [type="radio"]:checked,
+.choose [type="radio"]:not(:checked) {
+    position: absolute;
+    left: 0;top: 0;
+    opacity: 0;
+}
+
+.choose [type="radio"]:checked + label{
+  border-color: #D8BA78;
+  box-shadow: 3px 3px 0px 0px #D8BA78;
+  transform: scale(1.05);
+}
+
+.choose [type="radio"]:checked + label,
+.choose [type="radio"]:not(:checked) + label
+{
+    position: relative;
+    cursor: pointer;
+    display: inline-block;
+    color: #D8BA78;
+}
+.choose [type="radio"]:checked + label:before,
+.choose [type="radio"]:not(:checked) + label:before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 18px;
+    height: 18px;
+    border: 1px solid #ddd;
+    border-radius: 100%;
+    background: #fff;
+    opacity: 0;
+}
+.choose [type="radio"]:checked + label:after,
+.choose [type="radio"]:not(:checked) + label:after {
+    content: '';
+    width: 20px;
+    height: 20px;
+    background: #D8BA78;
+    position: absolute;
+    top: 10px;
+    right: 12px;
+    border-radius: 100%;
+    -webkit-transition: all 0.2s ease;
+    transition: all 0.2s ease;
+}
+.choose [type="radio"]:not(:checked) + label:after {
+    opacity: 0;
+    -webkit-transform: scale(0);
+    transform: scale(0);
+}
+.choose [type="radio"]:checked + label:after {
+    opacity: 1;
+    -webkit-transform: scale(1);
+    transform: scale(1);
+}
+
+.choose2{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+.choose2 li{
+  display: block;
+  position: relative;
+  margin-right: 15px;
+}
+.choose2 li:last-child{
+  margin-right: 0;
+}
+.choose2 li label{
+  border: 2px solid #000;
+  box-shadow: 3px 3px 0px 0px #000;
+  transition: all ease 300ms;
+  padding: 10px 15px;
+  background-color: #5F6774;
+  font-weight: bold;
+}
+.choose2 [type="radio"]:checked,
+.choose2 [type="radio"]:not(:checked) {
+    position: absolute;
+    left: 0;top: 0;
+    opacity: 0;
+}
+
+.choose2 [type="radio"]:checked + label{
+  background-color: #D8BA78;
+  /* border-color: #D8BA78;
+  box-shadow: 3px 3px 0px 0px #D8BA78; */
+  color: #000 !important;
+  transform: scale(1.05);
+}
+
+.choose2 [type="radio"]:checked + label,
+.choose2 [type="radio"]:not(:checked) + label
+{
+    position: relative;
+    cursor: pointer;
+    display: inline-block;
+    color: #D8BA78;
+}
