@@ -23,7 +23,7 @@ let URL_RESULT = ''
 export default function Register() {
     const [prompt, setPrompt] = useState(DEFAULT_PROMPT);
     const negative_prompt = DEFAULT_NEG_PROMPT;
-    const [imageFile, setImageFile] = useState(localStorage.getItem("faceImage"));
+    const [imageFile, setImageFile] = useState(null);
     const [CGF, setCGF] = useState(7.5);
     const [numSteps, setNumSteps] = useState(50);
     const [numProses, setNumProses] = useState(0);
