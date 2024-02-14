@@ -76,7 +76,7 @@ export default function Register() {
                         />
                         <p className='absolute left-[3.5rem] top-1/2 font-bold text-2xl -translate-y-1/2'>+62</p>
                         <input
-                            type='text'
+                            type='number'
                             value={payload.phone}
                             id='phone'
                             name='phone'
@@ -93,7 +93,6 @@ export default function Register() {
                 <BtnHexagon
                     disabled={!isValid()}
                     onClick={handleSubmit}
-                    text='Masuk'
                 />
             </div>
 

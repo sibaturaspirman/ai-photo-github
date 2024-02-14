@@ -25,6 +25,7 @@ const useWebcam = ({
 export default function Cam() {
     const router = useRouter();
     const [enabled, setEnabled] = useState(false);
+    const [captured, setCaptured] = useState(false);
     // const [countDown, setCoundown] = useState(5);
     // const [counter, setCounter] = useState(60);
     // const waktuBatasTake = useRef(null);
@@ -37,61 +38,65 @@ export default function Cam() {
         width = 512,
         height = 512,
     }) => {
-        setEnabled(true)
-        const canvas = previewRef.current;
-        const video = videoRef.current;
-        video.play;
-        if (canvas === null || video === null) {
-            return;
-        }
-    
-        // Calculate the aspect ratio and crop dimensions
-        const aspectRatio = video.videoWidth / video.videoHeight;
-        let sourceX, sourceY, sourceWidth, sourceHeight;
-    
-        if (aspectRatio > 1) {
-            // If width is greater than height
-            sourceWidth = video.videoHeight;
-            sourceHeight = video.videoHeight;
-            sourceX = (video.videoWidth - video.videoHeight) / 2;
-            sourceY = 0;
-        } else {
-            // If height is greater than or equal to width
-            sourceWidth = video.videoWidth;
-            sourceHeight = video.videoWidth;
-            sourceX = 0;
-            sourceY = (video.videoHeight - video.videoWidth) / 2;
-        }
-    
-        // Resize the canvas to the target dimensions
-        canvas.width = width;
-        canvas.height = height;
-    
-        const context = canvas.getContext('2d');
-        if (context === null) {
-            return;
-        }
-    
-        // Draw the image on the canvas (cropped and resized)
-        context.drawImage(
-            video,
-            sourceX,
-            sourceY,
-            sourceWidth,
-            sourceHeight,
-            0,
-            0,
-            width,
-            height
-        );
-
-        let faceImage = canvas.toDataURL();
-        if (typeof localStorage !== 'undefined') {
-            localStorage.setItem("faceImage", faceImage)
-        }
+        setCaptured(true)
         setTimeout(() => {
-            router.push('/generate');
-        }, 1250);
+            setEnabled(true)
+            setCaptured(null)
+            const canvas = previewRef.current;
+            const video = videoRef.current;
+            video.play;
+            if (canvas === null || video === null) {
+                return;
+            }
+        
+            // Calculate the aspect ratio and crop dimensions
+            const aspectRatio = video.videoWidth / video.videoHeight;
+            let sourceX, sourceY, sourceWidth, sourceHeight;
+        
+            if (aspectRatio > 1) {
+                // If width is greater than height
+                sourceWidth = video.videoHeight;
+                sourceHeight = video.videoHeight;
+                sourceX = (video.videoWidth - video.videoHeight) / 2;
+                sourceY = 0;
+            } else {
+                // If height is greater than or equal to width
+                sourceWidth = video.videoWidth;
+                sourceHeight = video.videoWidth;
+                sourceX = 0;
+                sourceY = (video.videoHeight - video.videoWidth) / 2;
+            }
+        
+            // Resize the canvas to the target dimensions
+            canvas.width = width;
+            canvas.height = height;
+        
+            const context = canvas.getContext('2d');
+            if (context === null) {
+                return;
+            }
+        
+            // Draw the image on the canvas (cropped and resized)
+            context.drawImage(
+                video,
+                sourceX,
+                sourceY,
+                sourceWidth,
+                sourceHeight,
+                0,
+                0,
+                width,
+                height
+            );
+    
+            let faceImage = canvas.toDataURL();
+            if (typeof localStorage !== 'undefined') {
+                localStorage.setItem("faceImage", faceImage)
+            }
+            setTimeout(() => {
+                router.push('/generate');
+            }, 1250);
+        }, 3000);
     }
 
     // useEffect(() => {
@@ -144,6 +149,15 @@ export default function Cam() {
                         <Image src='/icon-capture.png' width={389} height={220} alt='Zirolu' className='w-full' priority />
                     </div>
                     }
+
+                    {captured && 
+                    <div className='absolute top-0 left-0 right-0 bottom-0 w-[174px] h-[174px] overflow-hidden m-auto flex justify-center items-center pointer-events-none z-10'>
+                        <div className='w-full animate-countdown translate-y-[35%]'>
+                            <Image src='/countdown.png' width={174} height={522} alt='Zirolu' className='w-full' priority />
+                        </div>
+                    </div>
+                    }
+
                     <video ref={videoRef} className={`w-full border-2 border-[#D8BA78] rounded-sm ${enabled ? 'absolute opacity-0':'relative'}`} playsInline height={512}></video>
                     <canvas ref={previewRef} width="512" height="512" className={`${enabled ? 'relative':'absolute opacity-0'} w-full top-0 left-0 right-0 mx-auto pointer-events-nones border-2 border-[#D8BA78] rounded-sm`}></canvas>
                 </div>

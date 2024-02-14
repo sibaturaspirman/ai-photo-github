@@ -282,6 +282,8 @@ export default function Register() {
                     </div>
 
                     <pre className='relative mt-24 border-2 border-[#D8BA78] rounded-lg text-left bg-[#341B1A] text-[#D8BA78] p-5 text-sm overflow-y-auto overflow-x-hidden h-[100px] w-[60%] mx-auto'>
+                        AI generate face... <br></br>
+                        Loading model..<br></br>
                         {logs.filter(Boolean).join('\n')}
                     </pre>
                 </div>

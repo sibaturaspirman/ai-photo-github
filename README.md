@@ -1,11 +1,13 @@
 ## HAVE TO FIXED
 1. Webcam & Capture  ✅
-2. Countdown capture
+2. Countdown capture ✅
 3. Generate QR  ✅
 4. Watermark  ✅
-5. Integrasi API (cors)
+5. Integrasi API (cors) ✅
 6. Generate AI  ✅
 7. Socket  ✅
+9. virtual keyboard
+10. manifest.json ✅
 
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
