@@ -49,6 +49,7 @@ export default function Result() {
     const [sendEmailGak, setSendEmailGak] = useState(null);
     const [alamatEmail, setAlamatEmail] = useState();
     const [keKirimEmailGak, setKeKirimEmailGak] = useState(null);
+    const [loadingDownload, setLoadingDownload] = useState(null);
     const [payload, setPayload] = useState({
       name: getCookie('name'),
       phone: getCookie('phone'),
@@ -85,6 +86,7 @@ export default function Result() {
         // downloadImage(canvas.toDataURL("image/jpeg", 1.0), 'my-canvas.jpeg')
         // console.log(payload)
         // bodyFormData.append("file", '');
+        setLoadingDownload('≈')
 
         canvas.toBlob(async function(blob) {
             let bodyFormData = new FormData();
@@ -109,6 +111,7 @@ export default function Result() {
                     setIdFormEmail(response.id)
                     emitString("sendImage", response.file);
                     setGenerateQR('true')
+                    setLoadingDownload(null)
                     // setImageResultAI()
                     // if (typeof localStorage !== 'undefined') {
                     //     localStorage.setItem("idSendEmail", )
@@ -252,17 +255,24 @@ export default function Result() {
                     <div id='canvasResult' className='absolute top-0 left-0 right-0 bottom-0 z-10'></div>
                 </div>
                 }
-                <div className="relative w-[60%] mx-auto flex justify-center items-center flex-col mt-5">
-                    <button className="relative mx-auto flex justify-center items-center" onClick={downloadImageAI}>
-                        <Image src='/btn-download.png' width={820} height={192} alt='Zirolu' className='w-full' priority />
-                    </button>
-                    {/* <button className="relative mx-auto flex justify-center items-center" onClick={sendEmail}>
-                        <Image src='/btn-download.png' width={820} height={192} alt='Zirolu' className='w-full' priority />
-                    </button> */}
-                    <Link href='/how' className="relative mx-auto flex justify-center items-center">
-                        <Image src='/btn-retake.png' width={820} height={192} alt='Zirolu' className='w-full' priority />
-                    </Link>
+                <div className={`relative w-full ${loadingDownload ? 'hidden' : ''}`}>
+                    <div className="relative w-[60%] mx-auto flex justify-center items-center flex-col mt-5">
+                        <button className="relative mx-auto flex justify-center items-center" onClick={downloadImageAI}>
+                            <Image src='/btn-download.png' width={820} height={192} alt='Zirolu' className='w-full' priority />
+                        </button>
+                        {/* <button className="relative mx-auto flex justify-center items-center" onClick={sendEmail}>
+                            <Image src='/btn-download.png' width={820} height={192} alt='Zirolu' className='w-full' priority />
+                        </button> */}
+                        <Link href='/how' className="relative mx-auto flex justify-center items-center">
+                            <Image src='/btn-retake.png' width={820} height={192} alt='Zirolu' className='w-full' priority />
+                        </Link>
+                    </div>
                 </div>
+                {loadingDownload && 
+                    <div className='relative mt-10 border-2 border-[#D8BA78] rounded-lg text-center bg-[#341B1A] text-[#D8BA78] p-5 text-2xl font-bold w-[50%] mx-auto'>
+                        <p>Please wait, loading...</p>
+                    </div>
+                }
             </div>
         </main>
     );
