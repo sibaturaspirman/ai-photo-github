@@ -26,7 +26,7 @@ export default function Register() {
     const [imageFile, setImageFile] = useState(null);
     const [CGF, setCGF] = useState(10);
     const [numSteps, setNumSteps] = useState(50);
-    const [styleGender, setStyleGender] = useState(null);
+    const [styleGender, setStyleGender] = useState('man');
     const [stylePrompt, setStylePrompt] = useState(null);
     const [numProses, setNumProses] = useState(0);
     const [numProses1, setNumProses1] = useState();
@@ -80,7 +80,7 @@ export default function Register() {
     const handleStyle = (e) => {
         if(e.target.value == 'style1'){
             setNumSteps(60);
-            setCGF(10);
+            setCGF(12);
             if(styleGender === 'man'){
                 setPrompt("alone, The man in the racing car wears a red racing suit with logos. His helmet has a dark visor to protect his eyes. He grips the steering wheel with gloved hands, ready for the race. Inside the car, he's focused and ready to push himself to win. The view is captured from the side of the driver's seat. illustration, digital painting, trending on artstation, concept art, sharp focus, illustration, high quality, highly detailed, high resolution, like painting, extremely detailed, hyper realistic, zoom out view");
             }else if(styleGender === 'woman'){
@@ -90,7 +90,7 @@ export default function Register() {
             }
         }else if(e.target.value == 'style2'){
             setNumSteps(50);
-            setCGF(10);
+            setCGF(12);
             if(styleGender === 'man'){
                 setPrompt("alone, An architect who is a man engrossed in drawing against the backdrop of Dubai's cityscape at night, illuminated by a myriad of city lights, creating a captivating scene of urban brilliance.");
             }else if(styleGender === 'woman'){
@@ -100,7 +100,7 @@ export default function Register() {
             }
         }else if(e.target.value == 'style3'){
             setNumSteps(70);
-            setCGF(7.5);
+            setCGF(12);
             if(styleGender === 'man'){
                 setPrompt("alone, a man standing elegantly against the backdrop of a sprawling new york timesquare. He is dressed in a long sleeve formal attire, wearing a sleek evening gown or a sophisticated business suit, exuding confidence and grace. The man's attire complements the urban setting, with its tailored lines and refined details reflecting the modern and cosmopolitan vibe of the city. His posture is confident and composed as he gazes out at the city view, with tall skyscrapers rising in the background. The cityscape is alive with twinkling lights, bustling streets, and iconic landmarks, showcasing the dynamic energy and vibrancy of urban life. The man's expression is serene and contemplative, as if he is taking a moment to appreciate the beauty and excitement of the city around him. He may be holding a smartphone, adding a touch of sophistication to his ensemble. Overall, the illustration captures the timeless elegance and modern allure of a man in formal attire against the backdrop of a captivating city view.");
             }else if(styleGender === 'woman'){
@@ -291,16 +291,16 @@ export default function Register() {
             {/* LOADING */}
             {/* PILIH STYLE */}
             <div className={numProses1 ? `opacity-0 pointer-events-none` : ''}>
-                <div className='relative w-[50%] mt-1 mx-auto flex justify-center items-center pointer-events-none'>
+                {/* <div className='relative w-[50%] mt-1 mx-auto flex justify-center items-center pointer-events-none'>
                     <Image src='/style-title.png' width={606} height={118} alt='Zirolu' className='w-full' priority />
-                </div>
+                </div> */}
                 <div className='relative w-[38%] mt-4 mx-auto flex justify-center items-center pointer-events-none  border-2 border-[#D8BA78] rounded-sm'>
                     {imageFile && 
                         <Image src={imageFile}  width={200} height={200} alt='Zirolu' className='w-full' priority></Image>
                     }
                 </div>
                 <div className='relative mt-10 w-full'>
-                    <div className='relative w-full'>
+                    {/* <div className='relative w-full'>
                         <label htmlFor="choose_gender" className="block mb-4 text-2xl font-bold text-center text-[#F3E5C3] uppercase">Your Gender</label>
                         <div>
                             <ul className='choose2'>
@@ -336,9 +336,13 @@ export default function Register() {
                                 </li>
                             </ul>
                         </div>
-                    </div>
+                    </div> */}
                     <div className='relative w-full mt-10'>
-                        <label htmlFor="image_url" className="block mb-4 text-2xl font-bold text-center text-[#F3E5C3] uppercase">Choose Your Style</label>
+                        {/* <label htmlFor="image_url" className="block mb-4 text-2xl font-bold text-center text-[#F3E5C3] uppercase">Choose Your Style</label>
+                         */}
+                        <div className='relative w-[50%] mb-5 mx-auto flex justify-center items-center pointer-events-none'>
+                            <Image src='/style-title.png' width={606} height={118} alt='Zirolu' className='w-full' priority />
+                        </div>
                         <div>
                             <ul className='choose'>
                             <li>
@@ -405,9 +409,9 @@ export default function Register() {
                         </div>
                     </div>
                 </div>
-                {/* {prompt} */}
-                {/* {CGF}
-                {numSteps} */}
+                {/* {prompt}
+                {CGF} */}
+                {/* {numSteps} */}
                 {styleGender && stylePrompt &&
                     <div className="relative w-full flex justify-center items-center mt-10">
                         <button className="relative mx-auto flex justify-center items-center" onClick={generateAI}>
@@ -417,6 +421,29 @@ export default function Register() {
                 }
             </div>
             {/* !PILIH STYLE */}
+
+            {/* HIDDEN BTN */}
+            <div className='absolute left-0 bottom-0 w-[200px] h-[200px] bg-slate-800 z-50 opacity-0'>
+                <input
+                    id='choose_gender2'
+                    type="radio"
+                    name='choose_gender'
+                    value="woman"
+                    onChange={handleGender}
+                    className='w-full h-full'
+                />
+            </div>
+            <div className='absolute right-0 bottom-0 w-[200px] h-[200px] bg-slate-800 z-50 opacity-0'>
+                <input
+                    id='choose_gender3'
+                    type="radio"
+                    name='choose_gender'
+                    value="woman-hijab"
+                    onChange={handleGender}
+                    className='w-full h-full'
+                />
+            </div>
+            {/* HIDDEN BTN */}
             
 
             {/* <div className="space-y-2">

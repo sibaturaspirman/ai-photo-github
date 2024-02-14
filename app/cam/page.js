@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState, useMemo } from 'react';
 import Image from "next/image";
 import TopLogo from "../components/TopLogo";
-// import Link from 'next/link';
+import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 
 const useWebcam = ({
@@ -93,10 +93,14 @@ export default function Cam() {
             if (typeof localStorage !== 'undefined') {
                 localStorage.setItem("faceImage", faceImage)
             }
-            setTimeout(() => {
-                router.push('/generate');
-            }, 1250);
+            // setTimeout(() => {
+            //     router.push('/generate');
+            // }, 1250);
         }, 3000);
+    }
+
+    const retake = () => {
+        setEnabled(false)
     }
 
     // useEffect(() => {
@@ -186,6 +190,22 @@ export default function Cam() {
                     </button>
                 </div>
             }
+            <div className={`relative w-full ${!enabled ? 'hidden' : ''}`}>
+                <div className="relative w-[60%] mx-auto flex justify-center items-center flex-col mt-5">
+                    <Link href='/generate' className="block w-full relative mx-auto flex justify-center items-center">
+                        <Image src='/btn-next.png' width={820} height={192} alt='Zirolu' className='w-full' priority />
+                    </Link>
+                    {/* <button className="relative mx-auto flex justify-center items-center">
+                        <Image src='/btn-download.png' width={820} height={192} alt='Zirolu' className='w-full' priority />
+                    </button> */}
+                    <button className="relative mx-auto flex justify-center items-center mt-2" onClick={retake}>
+                        <Image src='/btn-retake.png' width={820} height={192} alt='Zirolu' className='w-full' priority />
+                    </button>
+                    {/* <a href='/cam' className="relative mx-auto flex justify-center items-center">
+                        <Image src='/btn-retake.png' width={820} height={192} alt='Zirolu' className='w-full' priority />
+                    </a> */}
+                </div>
+            </div>
         </main>
     );
 }
