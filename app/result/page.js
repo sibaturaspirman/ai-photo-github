@@ -9,13 +9,13 @@ import { useQRCode } from 'next-qrcode';
 import io from 'socket.io-client';
 
 
-function downloadImage(data, filename = 'untitled.jpeg') {
-    var a = document.createElement('a');
-    a.href = data;
-    a.download = filename;
-    document.body.appendChild(a);
-    a.click();
-}
+// function downloadImage(data, filename = 'untitled.jpeg') {
+//     var a = document.createElement('a');
+//     a.href = data;
+//     a.download = filename;
+//     document.body.appendChild(a);
+//     a.click();
+// }
 
 // SETUP SOCKET
 let SERVER_IP = "https://ag.socket.web.id:11100";
@@ -43,7 +43,8 @@ function emitString(key, payload) {
 export default function Result() {
     const [imageResultAI, setImageResultAI] = useState(null);
     const [generateQR, setGenerateQR] = useState(null);
-    const [linkQR, setLinkQR] = useState(null);
+    const [linkQR, setLinkQR] = useState('https://zirolu.id/');
+    const [idFormEmail, setIdFormEmail] = useState(null);
     const [payload, setPayload] = useState({
       name: getCookie('name'),
       phone: getCookie('phone'),
@@ -56,9 +57,9 @@ export default function Result() {
         // Perform localStorage action
         if (typeof localStorage !== 'undefined') {
             const item = localStorage.getItem('resulAIBase64')
-            const item2 = localStorage.getItem('faceURLResult')
+            // const item2 = localStorage.getItem('faceURLResult')
             setImageResultAI(item)
-            setLinkQR(item2)
+            // setLinkQR(item2)
         }
         // const item2 = getCookie('phone')
         // const item3 = getCookie('name')
@@ -77,45 +78,62 @@ export default function Result() {
         }).catch(e => {console("load failed")})
     }
     const uploadImage = async (canvas) => {
-        setGenerateQR('true')
-        emitString("sendImage", linkQR);
         // downloadImage(canvas.toDataURL("image/jpeg", 1.0), 'my-canvas.jpeg')
         // console.log(payload)
-        let bodyFormData = new FormData();
-        bodyFormData.append("name", payload.name);
-        bodyFormData.append("phone", payload.phone);
-        bodyFormData.append("file", canvas.toDataURL("image/jpeg", 1.0));
+        // bodyFormData.append("file", '');
 
-        console.log(bodyFormData)
+        canvas.toBlob(async function(blob) {
+            let bodyFormData = new FormData();
+            bodyFormData.append("name", payload.name);
+            bodyFormData.append("phone", payload.phone);
+            bodyFormData.append("file", blob, payload.name+'-photo-ai-iims.png');
+          
+            const options = {
+                method: 'POST',
+                body: bodyFormData,
+                headers: {
+                    'Authorization': 'de2e0cc3-65da-48a4-8473-484f29386d61:xZC8Zo4DAWR5Yh6Lrq4QE3aaRYJl9lss',
+                    'Accept': 'application/json',
+                }
+            };
+            
+            await fetch('https://photo-ai-iims.zirolu.id/v1/uploads', options)
+                .then(response => response.json())
+                .then(response => {
+                    console.log(response)
+                    setLinkQR(response.file)
+                    setIdFormEmail(response.id)
+                    emitString("sendImage", response.file);
+                    setGenerateQR('true')
+                    // setImageResultAI()
+                    // if (typeof localStorage !== 'undefined') {
+                    //     localStorage.setItem("idSendEmail", )
+                    // }
+                })
+                .catch(err => console.error(err));
+        });
+        
     
+
+        
+    }
+
+    const sendEmail = async () => {
+        // SENT EMAIL
+        // console.log(idFormEmail)
         const options = {
             method: 'POST',
-            body: bodyFormData,
-            headers: {
-                'Authorization': 'de2e0cc3-65da-48a4-8473-484f29386d61:xZC8Zo4DAWR5Yh6Lrq4QE3aaRYJl9lss',
-                'Content-Type': 'application/json',
-            }
-        };
-          
-        await fetch('https://photo-ai-iims.zirolu.id/v1/uploads', options)
-            .then(response => response.json())
-            .then(response => console.log(response))
-            .catch(err => console.error(err));
-
-        // SENT EMAIL
-        const options2 = {
-            method: 'POST',
-            body: {
+            body: JSON.stringify({
                 "email": "asepirman@antigravity.id",
-                "id": 1
-            },
+                "id": idFormEmail
+            }),
             headers: {
                 'Authorization': 'de2e0cc3-65da-48a4-8473-484f29386d61:xZC8Zo4DAWR5Yh6Lrq4QE3aaRYJl9lss',
                 'Content-Type': 'application/json',
             }
         };
           
-        await fetch('https://photo-ai-iims.zirolu.id/v1/uploads/email', options2)
+        await fetch('https://photo-ai-iims.zirolu.id/v1/uploads/email', options)
             .then(response => response.json())
             .then(response => console.log(response))
             .catch(err => console.error(err));
@@ -168,6 +186,9 @@ export default function Result() {
                 <button className="relative mx-auto flex justify-center items-center" onClick={downloadImageAI}>
                     <Image src='/btn-download.png' width={820} height={192} alt='Zirolu' className='w-full' priority />
                 </button>
+                {/* <button className="relative mx-auto flex justify-center items-center" onClick={sendEmail}>
+                    <Image src='/btn-download.png' width={820} height={192} alt='Zirolu' className='w-full' priority />
+                </button> */}
                 <Link href='/how' className="relative mx-auto flex justify-center items-center">
                     <Image src='/btn-retake.png' width={820} height={192} alt='Zirolu' className='w-full' priority />
                 </Link>
