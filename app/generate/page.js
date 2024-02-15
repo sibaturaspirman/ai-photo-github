@@ -290,7 +290,7 @@ export default function Register() {
             }
             {/* LOADING */}
             {/* PILIH STYLE */}
-            <div className={numProses1 ? `opacity-0 pointer-events-none` : ''}>
+            <div className={`relative w-full ${numProses1 ? 'opacity-0 pointer-events-none' : ''}`}>
                 {/* <div className='relative w-[50%] mt-1 mx-auto flex justify-center items-center pointer-events-none'>
                     <Image src='/style-title.png' width={606} height={118} alt='Zirolu' className='w-full' priority />
                 </div> */}
@@ -423,7 +423,7 @@ export default function Register() {
             {/* !PILIH STYLE */}
 
             {/* HIDDEN BTN */}
-            <div className='absolute left-0 bottom-0 w-[200px] h-[200px] bg-slate-800 z-50 opacity-0'>
+            <div className='absolute left-0 bottom-0 w-[200px] h-[200px] bg-transparent z-50 opacity-[0.01]'>
                 <input
                     id='choose_gender2'
                     type="radio"
@@ -433,7 +433,7 @@ export default function Register() {
                     className='w-full h-full'
                 />
             </div>
-            <div className='absolute right-0 bottom-0 w-[200px] h-[200px] bg-slate-800 z-50 opacity-0'>
+            <div className='absolute right-0 bottom-0 w-[200px] h-[200px] bg-transparent z-50 opacity-[0.01]'>
                 <input
                     id='choose_gender3'
                     type="radio"
