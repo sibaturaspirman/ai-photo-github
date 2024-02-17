@@ -50,6 +50,7 @@ export default function Result() {
     const [alamatEmail, setAlamatEmail] = useState();
     const [keKirimEmailGak, setKeKirimEmailGak] = useState(null);
     const [loadingDownload, setLoadingDownload] = useState(null);
+    const [showEmail, setShowEmail] = useState(null);
     const [payload, setPayload] = useState({
       name: getCookie('name'),
       phone: getCookie('phone'),
@@ -125,7 +126,17 @@ export default function Result() {
                     //     localStorage.setItem("idSendEmail", )
                     // }
                 })
-                .catch(err => console.error(err));
+                .catch(err => {
+                    if (typeof localStorage !== 'undefined') {
+                        const item = localStorage.getItem('faceURLResult')
+                        // emitString("sendImage", item);
+                        setShowEmail('true')
+                        setLinkQR(item)
+                        // setIdFormEmail(response.id)
+                        setGenerateQR('true')
+                        setLoadingDownload(null)
+                    }
+                });
         });
     }
 
@@ -238,10 +249,13 @@ export default function Result() {
                         />
                     </div>
                     <p className='text-center font-semibold text-2xl mt-5'>Scan this QR Code to Download your image.</p>
+
+                    <div className={`relative w-full  ${showEmail ? 'hidden' : ''}`}>
                     <div className="relative w-[60%] mx-auto flex justify-center items-center flex-col mt-5">
                         <button className="relative mx-auto flex justify-center items-center" onClick={()=>setSendEmailGak('true')}>
                             <Image src='/btn-send-email.png' width={820} height={192} alt='Zirolu' className='w-full' priority />
                         </button>
+                    </div>
                     </div>
                     {/* <Link href='/' className='text-center font-semibold text-lg mt-2 p-20' onClick={()=>{setGenerateQR(null)}}>Tap here to close</Link> */}
                     <a href='/' className='text-center font-semibold text-lg mt-2 p-20'>Tap here to close</a>
