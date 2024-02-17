@@ -5,7 +5,7 @@ import Image from "next/image";
 import { useEffect, useState, useMemo } from 'react';
 import TopLogo from "../components/TopLogo";
 import { useRouter } from 'next/navigation';
-import io from 'socket.io-client';
+// import io from 'socket.io-client';
 
 // @snippet:start(client.config)
 fal.config({
@@ -17,25 +17,25 @@ fal.config({
 });
 
 // SETUP SOCKET
-let SERVER_IP = "https://ag.socket.web.id:11100";
-let NETWORK = null;
+// let SERVER_IP = "https://ag.socket.web.id:11100";
+// let NETWORK = null;
 
-function emitNetworkConnection() {
-   NETWORK = io(SERVER_IP, {
-      withCredentials: false,
-      transoirtOptions: {
-         pooling: {
-            extraHeaders: {
-               "my-custom-header": "ag-socket",
-            },
-         },
-      },
-   });
-}
+// function emitNetworkConnection() {
+//    NETWORK = io(SERVER_IP, {
+//       withCredentials: false,
+//       transoirtOptions: {
+//          pooling: {
+//             extraHeaders: {
+//                "my-custom-header": "ag-socket",
+//             },
+//          },
+//       },
+//    });
+// }
 
-function emitString(key, payload) {
-   NETWORK.emit(key, payload);
-}
+// function emitString(key, payload) {
+//    NETWORK.emit(key, payload);
+// }
 // !SETUP SOCKET
 
 // const DEFAULT_PROMPT = 'anime style illustration of techwear, cyborg ninja, holding a sword, wearing a mask, striking pose, all limbs appear in frame, japanese vibe, detailed design for streetwear and urban style t-shirt design, solid color background, etc pro vector';
@@ -69,7 +69,7 @@ export default function Register() {
         }
     }, [imageFile])
 
-    emitNetworkConnection()
+    // emitNetworkConnection()
 
     const handleGender = (e) => {
         setStyleGender(e.target.value)
@@ -268,7 +268,7 @@ export default function Register() {
         setResultFaceSwap(result);
         FACE_URL_RESULT = result.image.url;
 
-        emitString("sendImage", result.image.url);
+        // emitStrsing("sendImage", result.image.url);
 
         toDataURL(FACE_URL_RESULT)
         .then(dataUrl => {
