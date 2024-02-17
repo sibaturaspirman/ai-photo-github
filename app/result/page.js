@@ -166,7 +166,7 @@ export default function Result() {
     }
 
     return (
-        <main className="flex min-h-screen flex-col items-center justify-top pt-12 pb-0 p-20">
+        <main className="flex min-h-screen flex-col items-center justify-top pt-12 pb-0 p-13">
             <TopLogo></TopLogo>
 
             {/* QR */}
@@ -264,21 +264,33 @@ export default function Result() {
                 </div>
                 }
                 {loadingDownload && 
-                    <div className='relative mt-10 border-2 border-[#D8BA78] rounded-lg text-center bg-[#341B1A] text-[#D8BA78] p-5 text-2xl font-bold w-[50%] mx-auto'>
+                    <div className='relative mt-2 border-2 border-[#D8BA78] rounded-lg text-center bg-[#341B1A] text-[#D8BA78] p-2 text-xl font-bold w-[50%] mx-auto'>
                         <p>Please wait, loading...</p>
                     </div>
                 }
                 <div className={`relative w-full ${loadingDownload ? 'hiddenx' : ''}`}>
-                    <div className="relative w-[60%] mx-auto flex justify-center items-center flex-col mt-5">
+                    <div className={`relative w-[60%] mx-auto flex justify-center items-center flex-col mt-5 ${loadingDownload ? 'hidden' : ''}`}   >
                         <button className={`relative mx-auto flex justify-center items-center ${loadingDownload ? 'hidden' : ''}`} onClick={downloadImageAI}>
                             <Image src='/btn-download.png' width={820} height={192} alt='Zirolu' className='w-full' priority />
                         </button>
                         {/* <button className="relative mx-auto flex justify-center items-center" onClick={sendEmail}>
                             <Image src='/btn-download.png' width={820} height={192} alt='Zirolu' className='w-full' priority />
                         </button> */}
-                        <Link href='/generate' className="relative mx-auto flex justify-center items-center">
-                            <Image src='/btn-retake.png' width={820} height={192} alt='Zirolu' className='w-full' priority />
-                        </Link>
+                    </div>
+                    <div className={`w-full mt-2 ${loadingDownload ? '' : 'hidden'}`}>
+                        <p className='text-center font-semibold text-xl'>QR Code stuck & tidak muncul? coba tap re-download</p>
+                        <div className="relative w-[60%] mx-auto flex justify-center items-center flex-col">
+                            <a href='/result' className="block w-full relative mx-auto flex justify-center items-center">
+                                <Image src='/btn-redownload.png' width={820} height={192} alt='Zirolu' className='w-full' priority />
+                            </a>
+                        </div>
+                    </div>
+                    <div className='w-full'>
+                        <div className="relative w-[60%] mx-auto flex justify-center items-center flex-col">
+                            <Link href='/generate' className="relative mx-auto flex justify-center items-center">
+                                <Image src='/btn-retake.png' width={820} height={192} alt='Zirolu' className='w-full' priority />
+                            </Link>
+                        </div>
                     </div>
                 </div>
             </div>
