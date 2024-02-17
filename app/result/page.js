@@ -6,7 +6,7 @@ import TopLogo from "../components/TopLogo";
 import { getCookie } from 'cookies-next';
 import { useEffect, useState, useMemo } from 'react';
 import { useQRCode } from 'next-qrcode';
-import io from 'socket.io-client';
+// import io from 'socket.io-client';
 import BtnHexagon2 from "../components/BtnHexagon2";
 
 
@@ -19,25 +19,25 @@ import BtnHexagon2 from "../components/BtnHexagon2";
 // }
 
 // SETUP SOCKET
-let SERVER_IP = "https://ag.socket.web.id:11100";
-let NETWORK = null;
+// let SERVER_IP = "https://ag.socket.web.id:11100";
+// let NETWORK = null;
 
-function emitNetworkConnection() {
-   NETWORK = io(SERVER_IP, {
-      withCredentials: false,
-      transoirtOptions: {
-         pooling: {
-            extraHeaders: {
-               "my-custom-header": "ag-socket",
-            },
-         },
-      },
-   });
-}
+// function emitNetworkConnection() {
+//    NETWORK = io(SERVER_IP, {
+//       withCredentials: false,
+//       transoirtOptions: {
+//          pooling: {
+//             extraHeaders: {
+//                "my-custom-header": "ag-socket",
+//             },
+//          },
+//       },
+//    });
+// }
 
-function emitString(key, payload) {
-   NETWORK.emit(key, payload);
-}
+// function emitString(key, payload) {
+//    NETWORK.emit(key, payload);
+// }
 // !SETUP SOCKET
 
 
@@ -56,7 +56,7 @@ export default function Result() {
     });
     const { Canvas } = useQRCode();
 
-    emitNetworkConnection()
+    // emitNetworkConnection()
 
     useEffect(() => {
         // Perform localStorage action
@@ -109,7 +109,7 @@ export default function Result() {
                     // console.log(response)
                     setLinkQR(response.file)
                     setIdFormEmail(response.id)
-                    emitString("sendImage", response.file);
+                    // emitString("sendImage", response.file);
                     setGenerateQR('true')
                     setLoadingDownload(null)
                     // setImageResultAI()

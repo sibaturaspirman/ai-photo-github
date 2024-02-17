@@ -5,6 +5,7 @@ import Image from "next/image";
 import { useEffect, useState, useMemo } from 'react';
 import TopLogo from "../components/TopLogo";
 import { useRouter } from 'next/navigation';
+import io from 'socket.io-client';
 
 // @snippet:start(client.config)
 fal.config({
@@ -14,6 +15,28 @@ fal.config({
       // targetUrl: 'http://localhost:3333/api/fal/proxy', // or your own external proxy
     }),
 });
+
+// SETUP SOCKET
+let SERVER_IP = "https://ag.socket.web.id:11100";
+let NETWORK = null;
+
+function emitNetworkConnection() {
+   NETWORK = io(SERVER_IP, {
+      withCredentials: false,
+      transoirtOptions: {
+         pooling: {
+            extraHeaders: {
+               "my-custom-header": "ag-socket",
+            },
+         },
+      },
+   });
+}
+
+function emitString(key, payload) {
+   NETWORK.emit(key, payload);
+}
+// !SETUP SOCKET
 
 // const DEFAULT_PROMPT = 'anime style illustration of techwear, cyborg ninja, holding a sword, wearing a mask, striking pose, all limbs appear in frame, japanese vibe, detailed design for streetwear and urban style t-shirt design, solid color background, etc pro vector';
 const DEFAULT_NEG_PROMPT = 'two faces, two heads, two bodies, boobs, sexy, bad anatomy, bad hands, blurry, low resolution, bad, ugly, low quality, pixelated, interpolated, compression artifacts, noisey, grainy, double hands';
@@ -45,6 +68,8 @@ export default function Register() {
             setImageFile(item)
         }
     }, [imageFile])
+
+    emitNetworkConnection()
 
     const handleGender = (e) => {
         setStyleGender(e.target.value)
@@ -242,6 +267,9 @@ export default function Register() {
         );
         setResultFaceSwap(result);
         FACE_URL_RESULT = result.image.url;
+
+        emitString("sendImage", result.image.url);
+
         toDataURL(FACE_URL_RESULT)
         .then(dataUrl => {
             // console.log('RESULT:', dataUrl)
@@ -423,7 +451,7 @@ export default function Register() {
             {/* !PILIH STYLE */}
 
             {/* HIDDEN BTN */}
-            <div className='absolute left-0 bottom-0 w-[200px] h-[200px] bg-transparent z-50 opacity-[0.01]'>
+            <div className='absolute left-0 bottom-0 w-[200px] h-[200px] bg-transparent z-50 opacity-[0.025]'>
                 <input
                     id='choose_gender2'
                     type="radio"
@@ -433,7 +461,7 @@ export default function Register() {
                     className='w-full h-full'
                 />
             </div>
-            <div className='absolute right-0 bottom-0 w-[200px] h-[200px] bg-transparent z-50 opacity-[0.01]'>
+            <div className='absolute right-0 bottom-0 w-[200px] h-[200px] bg-transparent z-50 opacity-[0.025]'>
                 <input
                     id='choose_gender3'
                     type="radio"
