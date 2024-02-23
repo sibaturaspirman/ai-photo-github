@@ -39,7 +39,7 @@ fal.config({
 // !SETUP SOCKET
 
 // const DEFAULT_PROMPT = 'anime style illustration of techwear, cyborg ninja, holding a sword, wearing a mask, striking pose, all limbs appear in frame, japanese vibe, detailed design for streetwear and urban style t-shirt design, solid color background, etc pro vector';
-const DEFAULT_NEG_PROMPT = 'two faces, two heads, two bodies, boobs, sexy, bad anatomy, bad hands, blurry, low resolution, bad, ugly, low quality, pixelated, interpolated, compression artifacts, noisey, grainy, double hands';
+const DEFAULT_NEG_PROMPT = '(((ugly)))), (((duplicate))), ((morbid)), ((mutilated)), [out of frame], extra fingers, mutated hands, ((poorly drawn hands)), ((poorly drawn face)), (((mutation))), (((deformed))), ((ugly)), blurry, ((bad anatomy)), (((bad proportions))), ((extra limbs)), cloned face, (((disfigured))), out of frame, ugly, extra limbs, (bad anatomy), gross proportions, (malformed limbs), ((missing arms)), ((missing legs)), (((extra arms))), (((extra legs))), mutated hands, (fused fingers), (too many fingers), (((long neck))), boobs, sexy, blurry, low resolution, low quality, pixelated, interpolated, compression artifacts, noisey, grainy';
 let URL_RESULT = ''
 let FACE_URL_RESULT = ''
 export default function Register() {
